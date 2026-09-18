@@ -6,11 +6,21 @@ Phase 8 (Agentic Autonomous Coding), Level 8.1 of the training set.
 |---|---|
 | `level_8_1_agent_foundations.jsonl` | 1,000 |
 | [`web/level_8_1_agent_foundations_web.jsonl`](web/) | 1,000 |
+| `level_8_2_task_decomposition_web.jsonl` | 1,000 |
 
 The `web/` variant specializes the same level for web-development environments
 (35 categories across frontend, backend, data, tooling, debugging, testing, and
 deployment reasoning). See [`web/README.md`](web/README.md). Its validator is
 `web/validate_level_8_1_web.py`.
+
+Level 8.2 (`level_8_2_task_decomposition_web.jsonl`, web specialization) teaches
+decomposing web objectives into minimal ordered verifiable subtasks across 25
+categories (goal decomposition, requirements, dependencies, prerequisites,
+ordering, domain decompositions, risk, blocking, scope, verification, adaptive
+replanning): 40 samples per category, difficulty targets met exactly
+(100/200/350/250/100), adversarial-marker lower bound 99%. Generator and
+validator live in [`decomp/`](decomp/); run
+`python3 data/phase8/decomp/validate_level_8_2_web.py`.
 
 One JSON object per line, UTF-8, ASCII-only field values, no blank lines, single trailing newline.
 

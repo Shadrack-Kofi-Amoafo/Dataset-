@@ -22,6 +22,9 @@ Synthetic instruction-tuning datasets.
   - `web/level_8_1_agent_foundations_web.jsonl` — 1,000 further samples, the same
     level specialized for web development (35 categories: frontend, backend,
     data, tooling, debugging, testing, deployment, integration).
+  - `level_8_2_task_decomposition_web.jsonl` — Level 8.2, 1,000 web samples on
+    task decomposition (goal → requirements → subgoals → dependencies → order →
+    execution → verification) across 25 categories with difficulty 1-5.
   - See [`data/phase8/README.md`](data/phase8/README.md) for the schema,
     distributions, and adversarial coverage.
 
@@ -31,6 +34,7 @@ Synthetic instruction-tuning datasets.
 python3 data/phase1/validate_level_1_2.py
 python3 data/phase8/validate_level_8_1.py
 python3 data/phase8/web/validate_level_8_1_web.py
+python3 data/phase8/decomp/validate_level_8_2_web.py
 ```
 
 Checks each file's line count, JSON validity, the exact field set, allowed category values,

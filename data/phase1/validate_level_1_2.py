@@ -109,10 +109,18 @@ def main():
                       r"unlikely to", re.IGNORECASE)
     flagging = sum(1 for o in objs if trap.search(o["answer"]))
     insufficient = sum(1 for o in objs if re.search(
-        r"cannot (be )?(determined|established|concluded)|insufficient|is unknown|"
-        r"cannot be split|unidentifiable", o["answer"], re.IGNORECASE))
+        r"cannot be determined|cannot determine|insufficient|is unknown|"
+        r"cannot be established|cannot be split|cannot be identified|"
+        r"is unidentifiable|cannot yet|not yet attributable|"
+        r"cannot be cleanly attributed|cannot be judged", o["answer"], re.IGNORECASE))
+    withheld = sum(1 for o in objs if re.search(
+        r"not (yet )?(supported|established|attributed|credited|justified)|"
+        r"cannot be (attributed|credited|determined|established|identified|split)|"
+        r"does not (establish|show|support)|unknown|insufficient|unlikely to",
+        o["answer"], re.IGNORECASE))
     print(f"answers that explicitly flag a misleading reading: {flagging}")
     print(f"answers that state the evidence is insufficient: {insufficient}")
+    print(f"answers that withhold or qualify a causal conclusion: {withheld}")
     for message in errors:
         print("FAIL:", message)
     print("\nRESULT:", "PASS" if not errors else f"FAIL ({len(errors)} problem(s))")

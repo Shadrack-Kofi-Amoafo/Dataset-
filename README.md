@@ -25,6 +25,12 @@ Synthetic instruction-tuning datasets.
   - `level_8_2_task_decomposition_web.jsonl` — Level 8.2, 1,000 web samples on
     task decomposition (goal → requirements → subgoals → dependencies → order →
     execution → verification) across 25 categories with difficulty 1-5.
+  - `level_8_2_deep_task_decomposition_web.jsonl` — Level 8.2 deep, 1,000 web
+    samples on deep decomposition of ambiguous cross-layer work (adds unknown
+    info, system boundaries, parallelism, contingencies, replanning; twenty
+    named reasoning challenges) across 36 categories with string difficulty
+    {easy, medium, hard, expert} = 100/250/400/250 and ≥40% adversarial
+    samples.
   - See [`data/phase8/README.md`](data/phase8/README.md) for the schema,
     distributions, and adversarial coverage.
 
@@ -35,6 +41,7 @@ python3 data/phase1/validate_level_1_2.py
 python3 data/phase8/validate_level_8_1.py
 python3 data/phase8/web/validate_level_8_1_web.py
 python3 data/phase8/decomp/validate_level_8_2_web.py
+python3 data/phase8/deep/d2validate.py
 ```
 
 Checks each file's line count, JSON validity, the exact field set, allowed category values,

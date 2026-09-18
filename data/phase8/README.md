@@ -7,6 +7,7 @@ Phase 8 (Agentic Autonomous Coding), Level 8.1 of the training set.
 | `level_8_1_agent_foundations.jsonl` | 1,000 |
 | [`web/level_8_1_agent_foundations_web.jsonl`](web/) | 1,000 |
 | `level_8_2_task_decomposition_web.jsonl` | 1,000 |
+| `level_8_2_deep_task_decomposition_web.jsonl` | 1,000 |
 
 The `web/` variant specializes the same level for web-development environments
 (35 categories across frontend, backend, data, tooling, debugging, testing, and
@@ -21,6 +22,30 @@ replanning): 40 samples per category, difficulty targets met exactly
 (100/200/350/250/100), adversarial-marker lower bound 99%. Generator and
 validator live in [`decomp/`](decomp/); run
 `python3 data/phase8/decomp/validate_level_8_2_web.py`.
+
+Level 8.2 deep (`level_8_2_deep_task_decomposition_web.jsonl`) is the harder
+companion: deep decomposition of realistic, ambiguous, cross-layer web work
+across 36 categories (everything in the first 8.2 set plus authorization,
+monorepo, migration, integration, unknown-information, backward-compatibility,
+regression, architecture, state-management, accessibility, responsive-design,
+and dependency-upgrade decomposition). It teaches the full chain
+GOAL → REQUIREMENTS → UNKNOWN INFO → SYSTEM BOUNDARIES → SUBGOALS →
+DEPENDENCIES → PREREQUISITES → ORDER → PARALLELISM → IMPLEMENTATION →
+VERIFICATION → CONTINGENCIES → REPLANNING with twenty named reasoning
+challenges (hidden dependencies, UI-needs-missing-API-data, migration-before-
+code, vague bug reports, shared prerequisites, parallel-vs-sequential,
+architecture conflicts, inspection-first, over/under-decomposition, backward
+compat, production-data awareness, shared-component regression, auth vs authz,
+multi-origin bugs, build-gated deploy, behavior-preserving refactor, and
+monolith/modular/monorepo-aware decomposition). Difficulty is a STRING from
+{easy, medium, hard, expert} with exact targets 100/250/400/250 favoring
+hard+expert; per-category counts 27-29. Measured markers: multi-layer 99.7%
+(target ≥50%), missing-information recognition 50.1% (≥30%), adaptive/
+conditional 62.7% (≥30%), substantive verification 99.0% (≥25%), scope-control
+59.7% (≥20%), adversarial realism 51.4% (≥40%). Semantic dedup: max instruction
+Jaccard 0.567 within file, 0.412 against the first 8.2 file (0 pairs > 0.60).
+Generator and validator live in [`deep/`](deep/); run
+`python3 data/phase8/deep/d2validate.py`.
 
 One JSON object per line, UTF-8, ASCII-only field values, no blank lines, single trailing newline.
 

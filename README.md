@@ -13,11 +13,20 @@ Synthetic instruction-tuning datasets.
     difficulties 2-4.
   - Combined: **700 samples**. See [`data/phase1/README.md`](data/phase1/README.md) for the
     schema, distributions, and adversarial coverage.
+- [`data/phase8/`](data/phase8/) — Phase 8: Agentic Autonomous Coding
+  - `level_8_1_agent_foundations.jsonl` — 1,000 samples on agent-loop reasoning
+    (task understanding, inspect-before-act, next-action selection, observation vs
+    assumption, success/failure detection, plan revision, stopping conditions,
+    verification, and related agent disciplines) across 25 categories with
+    difficulty 1-5 and heavy adversarial coverage.
+  - See [`data/phase8/README.md`](data/phase8/README.md) for the schema,
+    distributions, and adversarial coverage.
 
 ## Validation
 
 ```
 python3 data/phase1/validate_level_1_2.py
+python3 data/phase8/validate_level_8_1.py
 ```
 
 Checks each file's line count, JSON validity, the exact field set, allowed category values,

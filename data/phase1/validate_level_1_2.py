@@ -15,7 +15,7 @@ import sys
 
 PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                     "level_1_2_critical_causal_reasoning.jsonl")
-EXPECTED_LINES = 200
+EXPECTED_LINES = 500
 FIELDS = ["instruction", "reasoning", "answer", "category", "difficulty"]
 CATEGORIES = {
     "correlation_vs_causation", "confounding", "reverse_causality", "intervention",
@@ -27,6 +27,12 @@ STOP = set("""a an the of to in and or is are was were be been for with on at by
 this it its as than then so such not no more most some any all each per cent percent after
 before""".split())
 NEAR_DUP_THRESHOLD = 0.34
+MIN_REASONING_SENTENCES = 3
+MAX_REASONING_SENTENCES = 6
+
+
+def sentences(text):
+    return [part for part in re.split(r"(?<=[.!?])\s+", text.strip()) if part]
 
 
 def words(text):
@@ -61,6 +67,10 @@ def main():
             value = obj.get(field)
             if not isinstance(value, str) or len(value.split()) < 10:
                 errors.append(f"line {n}: {field} is too short or not a string")
+        count = len(sentences(obj.get("reasoning", "")))
+        if not MIN_REASONING_SENTENCES <= count <= MAX_REASONING_SENTENCES:
+            errors.append(f"line {n}: reasoning has {count} sentences, "
+                          f"expected {MIN_REASONING_SENTENCES}-{MAX_REASONING_SENTENCES}")
         objs.append(obj)
 
     seen = collections.Counter(o["instruction"] for o in objs)
@@ -91,6 +101,18 @@ def main():
         print(f"  {level}  {diff[level]:3d}  {diff[level] / len(objs) * 100:5.1f}%")
     hard = sum(v for k, v in diff.items() if k >= 2)
     print(f"\nsamples at difficulty 2-4: {hard} ({hard / len(objs) * 100:.1f}%)")
+    print("reasoning sentence counts:",
+          dict(sorted(collections.Counter(len(sentences(o["reasoning"])) for o in objs).items())))
+    trap = re.compile(r"trap|tempting|misleading|overstat|inflat|artifact|coincid|"
+                      r"not supported|unsupported|cannot be attributed|cannot be credited|"
+                      r"does not establish|plausible alternative|may reflect|largely reflect|"
+                      r"unlikely to", re.IGNORECASE)
+    flagging = sum(1 for o in objs if trap.search(o["answer"]))
+    insufficient = sum(1 for o in objs if re.search(
+        r"cannot (be )?(determined|established|concluded)|insufficient|is unknown|"
+        r"cannot be split|unidentifiable", o["answer"], re.IGNORECASE))
+    print(f"answers that explicitly flag a misleading reading: {flagging}")
+    print(f"answers that state the evidence is insufficient: {insufficient}")
     for message in errors:
         print("FAIL:", message)
     print("\nRESULT:", "PASS" if not errors else f"FAIL ({len(errors)} problem(s))")

@@ -19,6 +19,9 @@ Synthetic instruction-tuning datasets.
     assumption, success/failure detection, plan revision, stopping conditions,
     verification, and related agent disciplines) across 25 categories with
     difficulty 1-5 and heavy adversarial coverage.
+  - `web/level_8_1_agent_foundations_web.jsonl` — 1,000 further samples, the same
+    level specialized for web development (35 categories: frontend, backend,
+    data, tooling, debugging, testing, deployment, integration).
   - See [`data/phase8/README.md`](data/phase8/README.md) for the schema,
     distributions, and adversarial coverage.
 
@@ -27,6 +30,7 @@ Synthetic instruction-tuning datasets.
 ```
 python3 data/phase1/validate_level_1_2.py
 python3 data/phase8/validate_level_8_1.py
+python3 data/phase8/web/validate_level_8_1_web.py
 ```
 
 Checks each file's line count, JSON validity, the exact field set, allowed category values,

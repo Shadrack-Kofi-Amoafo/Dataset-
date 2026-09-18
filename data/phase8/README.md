@@ -5,6 +5,12 @@ Phase 8 (Agentic Autonomous Coding), Level 8.1 of the training set.
 | file | samples |
 |---|---|
 | `level_8_1_agent_foundations.jsonl` | 1,000 |
+| [`web/level_8_1_agent_foundations_web.jsonl`](web/) | 1,000 |
+
+The `web/` variant specializes the same level for web-development environments
+(35 categories across frontend, backend, data, tooling, debugging, testing, and
+deployment reasoning). See [`web/README.md`](web/README.md). Its validator is
+`web/validate_level_8_1_web.py`.
 
 One JSON object per line, UTF-8, ASCII-only field values, no blank lines, single trailing newline.
 

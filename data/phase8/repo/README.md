@@ -101,14 +101,31 @@ No framework dominates a category; expert samples are anchored in
 cross-boundary situations (env drift, stale tickets, schema-vs-code divergence,
 partial renames, deployment topology).
 
-## Pipeline provenance
+## Pipeline provenance and quality pass
 
 `dataset_gen/` at the repo root contains the raw candidate pools
-(`part01…part35`, one per category topic plus supplements) and `build.py`, the
-aggregator/validator that enforces the 5-field schema, ASCII allowlist, exact
-+ near-duplicate instruction checks, category counts, and difficulty bands.
-Candidate generation deliberately overproduced; a dedicated purge pass removed
-49 thinnest or most-repetitive mediums and 36 mediums were regraded hard during
-calibration, leaving exactly 1,000 accepted samples. The JSONL here is the
-final artifact of that pipeline plus a last sent formating normalization of the
-`reasoning` field (semicolon/colon-joined clauses split into sentences).
+(`part01…part35`, one per category topic plus supplements) and the pipeline:
+
+- `build.py` — aggregator/validator; enforces the 5-field schema, ASCII
+  allowlist, exact + near-duplicate instruction checks, category counts, and
+  difficulty bands (~4.5s).
+- `postprocess.py` — idempotent sentence-form normalization of `reasoning`
+  (semicolon/colon-joined clauses split into sentences) plus authored glitch
+  fixes; writes both JSONL copies. Fresh `build.py` output + `postprocess.py`
+  reproduces the deliverable byte-identically (~0.15s).
+- `quality.py` — deep quality scanner used for the final purge pass.
+
+Candidate generation deliberately overproduced; a first purge pass removed the
+49 thinnest or most-repetitive mediums and regraded 36 mediums to hard during
+calibration, leaving exactly 1,000 accepted samples. A second, automated purge
+pass (`quality.py`) then scanned all 1,000 accepted samples for: near-duplicate
+pairs below the validator's hard-fail threshold (word-set Jaccard, down to 0.33
+on instructions / 0.45 on answers and combined text — **0 pairs**), boilerplate
+templates (instruction openers ≥ 6×, answer openers ≥ 12×, repeated answer
+5-grams ≥ 6× — **none**), short/low-specificity answers (930 samples score a
+perfect 0.0; the only 2 zero-anchor outliers were hand-inspected and are
+concrete, correct samples), and missing evidence/uncertainty language —
+uncertainty markers are present where the spec binds (epistemic categories) and
+absent only on deterministic-fact or obtain-the-missing-fact-plan samples where
+confidence is appropriate. **No accepted sample met the drop bar**; the purge
+pass is recorded here rather than performing quality-destroying deletions.

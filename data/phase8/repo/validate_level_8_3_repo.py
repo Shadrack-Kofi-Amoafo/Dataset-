@@ -13,7 +13,9 @@ import sys
 from collections import Counter
 from itertools import combinations
 
-PATH = "data/phase8/repo/level_8_3_repository_understanding.jsonl"
+import os
+PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                    "level_8_3_repository_understanding.jsonl")
 EXPECTED_LINES = 1000
 FIELDS = ["instruction", "reasoning", "answer", "category", "difficulty"]
 DIFFICULTIES = {"easy", "medium", "hard", "expert"}

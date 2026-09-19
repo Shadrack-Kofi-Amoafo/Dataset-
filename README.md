@@ -31,6 +31,12 @@ Synthetic instruction-tuning datasets.
     named reasoning challenges) across 36 categories with string difficulty
     {easy, medium, hard, expert} = 100/250/400/250 and ≥40% adversarial
     samples.
+  - [`repo/level_8_3_repository_understanding.jsonl`](data/phase8/repo/) —
+    Level 8.3, 1,000 samples on repository understanding for autonomous
+    coding agents (INSPECT → IDENTIFY → TRACE → HYPOTHESIZE → VERIFY →
+    UPDATE) across 34 categories with string difficulty
+    {easy, medium, hard, expert} = 90/269/384/257, ≥45% adversarial
+    evidence-conflict phrasing and ≥21% missing-information recognition.
   - See [`data/phase8/README.md`](data/phase8/README.md) for the schema,
     distributions, and adversarial coverage.
 
@@ -42,6 +48,7 @@ python3 data/phase8/validate_level_8_1.py
 python3 data/phase8/web/validate_level_8_1_web.py
 python3 data/phase8/decomp/validate_level_8_2_web.py
 python3 data/phase8/deep/d2validate.py
+python3 data/phase8/repo/validate_level_8_3_repo.py
 ```
 
 Checks each file's line count, JSON validity, the exact field set, allowed category values,

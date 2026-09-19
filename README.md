@@ -35,8 +35,8 @@ Synthetic instruction-tuning datasets.
     Level 8.3, 1,000 samples on repository understanding for autonomous
     coding agents (INSPECT → IDENTIFY → TRACE → HYPOTHESIZE → VERIFY →
     UPDATE) across 34 categories with string difficulty
-    {easy, medium, hard, expert} = 86/284/386/244, ≥51% adversarial
-    evidence-conflict phrasing and ≥29% missing-information recognition.
+    {easy, medium, hard, expert} = 90/269/384/257, ≥45% adversarial
+    evidence-conflict phrasing and ≥21% missing-information recognition.
   - See [`data/phase8/README.md`](data/phase8/README.md) for the schema,
     distributions, and adversarial coverage.
 

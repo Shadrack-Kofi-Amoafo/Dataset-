@@ -47,6 +47,24 @@ Jaccard 0.567 within file, 0.412 against the first 8.2 file (0 pairs > 0.60).
 Generator and validator live in [`deep/`](deep/); run
 `python3 data/phase8/deep/d2validate.py`.
 
+Level 8.4 ([`tools/level_8_4_tool_terminal_use_web.jsonl`](tools/)) is the tool &
+terminal-use layer: 1,000 web-development samples teaching an agent to select,
+execute and interpret tools — terminal and shell reasoning, file inspection,
+search and safe modification, Git status/diff/branch handling, package-manager
+and install diagnosis, process and port inspection, dev-server execution, build
+tools and test runners, browser DevTools, network and API inspection, database
+CLIs, log analysis, environment configuration, output interpretation,
+command-failure recovery, result verification and safe tool use. It reinforces
+UNDERSTAND → SELECT TOOL → INSPECT → ACT → INTERPRET OUTPUT → VERIFY →
+CONTINUE OR RECOVER, with tool output treated as evidence rather than truth.
+26 categories (31-47 samples each); string difficulty
+{easy, medium, hard, expert} = 57/266/395/282; adversarial/misleading-result
+phrasing 52.4% by validator scan (76.3% engineered), unexpected-output or
+recovery 79.5%, competing-tool selection 73.4%; 0 near-duplicate instruction
+pairs and 0 overlapping sample pairs. Candidate chunks, builder and validator
+live in [`tools/`](tools/); run
+`python3 data/phase8/tools/validate_level_8_4_tools_web.py`.
+
 One JSON object per line, UTF-8, ASCII-only field values, no blank lines, single trailing newline.
 
 Validator:

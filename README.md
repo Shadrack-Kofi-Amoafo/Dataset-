@@ -37,6 +37,17 @@ Synthetic instruction-tuning datasets.
     UPDATE) across 34 categories with string difficulty
     {easy, medium, hard, expert} = 90/269/384/257, ≥45% adversarial
     evidence-conflict phrasing and ≥21% missing-information recognition.
+  - [`tools/level_8_4_tool_terminal_use_web.jsonl`](data/phase8/tools/) —
+    Level 8.4, 1,000 samples on tool & terminal use for autonomous coding
+    agents in web-development repositories (UNDERSTAND → SELECT TOOL → INSPECT →
+    ACT → INTERPRET OUTPUT → VERIFY → CONTINUE OR RECOVER) across 26 categories
+    — terminal/shell reasoning, file inspection, search and safe modification,
+    Git, package managers and installs, processes, ports, dev servers, builds,
+    test runners, browser DevTools, network and API inspection, database CLIs,
+    log analysis, environment configuration, output interpretation, failure
+    recovery, result verification and safe tool use — with string difficulty
+    {easy, medium, hard, expert} = 57/266/395/282, ≥52% adversarial
+    misleading-output phrasing (76% engineered) and 0 near-duplicate samples.
   - See [`data/phase8/README.md`](data/phase8/README.md) for the schema,
     distributions, and adversarial coverage.
 
@@ -49,6 +60,7 @@ python3 data/phase8/web/validate_level_8_1_web.py
 python3 data/phase8/decomp/validate_level_8_2_web.py
 python3 data/phase8/deep/d2validate.py
 python3 data/phase8/repo/validate_level_8_3_repo.py
+python3 data/phase8/tools/validate_level_8_4_tools_web.py
 ```
 
 Checks each file's line count, JSON validity, the exact field set, allowed category values,
